@@ -1,9 +1,9 @@
 from pydantic import BaseModel
-from uuid import UUID
+import uuid
 
 # Model Pydantic = Datatype
 class Product(BaseModel):
-    id: UUID
+    id: str
     category: str
     name: str
     price: float
