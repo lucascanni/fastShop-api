@@ -45,3 +45,12 @@ products = [
 @router.get('', response_model=List[schemas_dto.Product])
 async def get_productsList():
     return products
+
+@router.post('', response_model=schemas_dto.Product, status_code=201)
+async def create_student(givenCategory: str, givenName: str, givenPrice: float ,givenDescription: str):
+    # création de l'object/dict Product avec les données reçues
+    newProduct = schemas_dto.Product(id=uuid.uuid4(),category=givenCategory, name=givenName, price=givenPrice, description=givenDescription)
+    # Ajout du nouveau Student dans la List/Array
+    products.append(newProduct)
+    # Réponse définit par le Student avec son ID
+    return newProduct
