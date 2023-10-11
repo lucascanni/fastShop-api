@@ -5,7 +5,6 @@ from uuid import UUID
 class Product(BaseModel):
     id: UUID
     category: str
-    sousCategory: str
     name: str
     price: float
     description: str 
