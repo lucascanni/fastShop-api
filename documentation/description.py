@@ -13,5 +13,11 @@ You will be able to:
 * Update a product.
 * Delete a product.
 
+## Categories
+
+You will be able to:
+
+* Get categories list.
+* Get products list by category.
 
 """
