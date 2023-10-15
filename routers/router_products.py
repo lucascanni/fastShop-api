@@ -69,18 +69,35 @@ async def get_product_by_id(id: str):
  status_code=404, detail=f"Produit {id} not found."
  )
 
-@router.get('/{category}', response_model=schemas_dto.Product)
-async def get_product_by_category(category: str):
-    productsByCategory = []
+@router.put('/{id}', response_model=schemas_dto.Product)
+async def update_product(id: str, givenCategory: str, givenName: str, givenPrice: float ,givenDescription: str):
     #On parcours chaque produit de la liste
     for product in products:
-        # Si la categorie correspond, on retourne le produit trouvé
-        if product.category == category:
-            productsByCategory = productsByCategory + product
+        # Si l'ID correspond, on retourne le produit trouvé
+        if product.id == id:
+            product.category = givenCategory
+            product.name = givenName
+            product.price = givenPrice
+            product.description = givenDescription
+            return product
         # pas de "else" car si on ne l'a pas trouvé, on continue avec le prochain student
-    if productsByCategory != []:
-        return productsByCategory
-    else:
-        # Si on arrive ici, c'est que la boucle sur la liste "produits" n'a rien trouvé
-        # On lève donc un HTTP Exception avec un message d'erreur
-        raise HTTPException(status_code=404, detail=f"Produits {category} not found.")
+    # Si on arrive ici, c'est que la boucle sur la liste "produits" n'a rien trouvé
+    # On lève donc un HTTP Exception avec un message d'erreur
+    raise HTTPException(
+ status_code=404, detail=f"Produit {id} not found."
+ ) 
+
+@router.delete('/{id}', response_model=schemas_dto.Product)
+async def delete_product(id: str):
+    #On parcours chaque produit de la liste
+    for product in products:
+        # Si l'ID correspond, on retourne le produit trouvé
+        if product.id == id:
+            products.remove(product)
+            return product
+        # pas de "else" car si on ne l'a pas trouvé, on continue avec le prochain student
+    # Si on arrive ici, c'est que la boucle sur la liste "produits" n'a rien trouvé
+    # On lève donc un HTTP Exception avec un message d'erreur
+    raise HTTPException(
+ status_code=404, detail=f"Produit {id} not found."
+ )
