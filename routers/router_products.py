@@ -3,6 +3,7 @@ from classes import schemas_dto
 import uuid
 from typing import List
 from database.firebase import db
+from routers.router_auth import get_current_user
 
 router = APIRouter(
     prefix='/products',
@@ -44,22 +45,22 @@ products = [
 ]
 
 @router.get('', response_model=List[schemas_dto.Product])
-async def get_products_list():
+async def get_products_list(userData: int = Depends(get_current_user)):
     # Avec la base de données Firebase
-    firebase_products = db.child("products").get().val()
+    firebase_products = db.child("users").child(userData['uid']).child("products").get(userData['idToker']).val()
     resultArray = [value for value in firebase_products.values()]
     # return products
     return resultArray
 
 
 @router.post('', response_model=schemas_dto.Product, status_code=201)
-async def create_product(givenCategory: str, givenName: str, givenPrice: float ,givenDescription: str):
+async def create_product(givenCategory: str, givenName: str, givenPrice: float ,givenDescription: str, userData: int = Depends(get_current_user)):
     # Avec la base de données Firebase
     # création de l'object/dict Product avec les données reçues
     newProduct = schemas_dto.Product(id=str(uuid.uuid4()),category=givenCategory, name=givenName, price=givenPrice, description=givenDescription)
     # Ajout du nouveau Student dans la List/Array
     # products.append(newProduct)
-    db.child("products").child(str(uuid.uuid4())).set(newProduct.model_dump())
+    db.child("users").child(userData['uid']).child("products").child(str(uuid.uuid4())).set(newProduct.model_dump())
     # Réponse définit par le Student avec son ID
     return newProduct
 

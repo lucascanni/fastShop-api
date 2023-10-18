@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from fastapi.security import OAuth2PasswordBearer
 from classes.schemas_dto import User
-from database.firebase import authProduct
 from firebase_admin import auth
+from database.firebase import authProduct
 
 router = APIRouter(
     prefix='/auth',
