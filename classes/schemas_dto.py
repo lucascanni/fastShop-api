@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-import uuid
 
 # Model Pydantic = Datatype
 class Product(BaseModel):
@@ -8,3 +7,7 @@ class Product(BaseModel):
     name: str
     price: float
     description: str 
+
+class User(BaseModel):
+    email: str
+    password: str
