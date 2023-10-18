@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from classes import schemas_dto
 import uuid
 from typing import List
+from database.firebase import db
 
 router = APIRouter(
     prefix='/categories',
