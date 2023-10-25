@@ -2,6 +2,11 @@
 api_description = """
 FastShop helps you do awesome stuff. 🚀
 
+To get your access :
+- create a account on /auth/signup
+- login on /auth/login
+- redirection on [checkout](http://localhost:8000/stripe/checkout) to pay your subscription
+
 ## Products
 
 You will be able to:

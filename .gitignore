@@ -1,3 +1,5 @@
 /.venv
 __pycache__
 configs/fastshopapi-firebase-adminsdk-hndzj-bb3a7be7b2.json
+.example.env
+.env
